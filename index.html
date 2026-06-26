@@ -132,14 +132,14 @@ tr:hover td{background:#14202f}
       <div class="s">Need decision / deploy / probe</div>
     </div>
     <div class="kpi k-green">
-      <div class="v">0</div>
+      <div class="v">&mdash;</div>
       <div class="l">Records Loaded (last run)</div>
-      <div class="s">of 24,392,474 staged</div>
+      <div class="s">no result logs in this snapshot</div>
     </div>
     <div class="kpi k-red">
-      <div class="v">0</div>
+      <div class="v">&mdash;</div>
       <div class="l">Load Rejections (last run)</div>
-      <div class="s">0.0% pass rate</div>
+      <div class="s">logs rotated between runs</div>
     </div>
   </div>
 
@@ -209,17 +209,18 @@ tr:hover td{background:#14202f}
       (<code>99_Logs/*_success.csv</code> / <code>*_error.csv</code>, chunked logs rolled up).
       This reflects the most recent load attempt, not a live query of the Salesforce org &mdash;
       after a re-run it updates when the dashboard is regenerated.</div>
+    <div class="note" style="margin:0 0 14px">No Bulk&nbsp;API result logs are present in this snapshot (they are rotated between pipeline runs), so loaded / failed counts are not available this refresh. Staged counts below reflect the current staging layer. Re-run the dashboard right after a load to capture results.</div>
     <div class="hero">
       <div class="hero-top">
         <span class="hero-lbl">Overall load coverage</span>
-        <span class="hero-pct" style="color:#ef4444">0.0%</span>
+        <span class="hero-pct" style="color:#6d8a9c">n/a</span>
       </div>
       <div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div>
     </div>
     <div class="totals">
       <span><b>24,392,474</b> staged</span>
-      <span><b>0</b> loaded</span>
-      <span><b>0</b> failed</span>
+      <span><b>&mdash;</b> loaded</span>
+      <span><b>&mdash;</b> failed</span>
       <span><b>3,263,364</b> in retry queue</span>
       <span><b>11</b> objects tracked</span>
     </div>
@@ -234,17 +235,17 @@ tr:hover td{background:#14202f}
         <th>Status</th>
       </tr></thead>
       <tbody>
-<tr><td class="td-name"><span class="dot dot-pending"></span>Account Account Relation</td><td class="td-n">1,578</td><td class="td-n ok">0</td><td class="td-n er">0</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct er">0.0%</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-pending"></span>Account Contact Relation</td><td class="td-n">54,968</td><td class="td-n ok">0</td><td class="td-n er">0</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct er">0.0%</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-pending"></span>Account Team Member</td><td class="td-n">0</td><td class="td-n ok">0</td><td class="td-n er">0</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct dim">—</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-pending"></span>Committee Account</td><td class="td-n">6,051</td><td class="td-n ok">0</td><td class="td-n er">0</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct er">0.0%</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-pending"></span>Contact Contact Relation</td><td class="td-n">163,386</td><td class="td-n ok">0</td><td class="td-n er">0</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct er">0.0%</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-pending"></span>Contact Point Address</td><td class="td-n">10,411,331</td><td class="td-n ok">0</td><td class="td-n er">0</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct er">0.0%</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-pending"></span>Contact Point Email</td><td class="td-n">2,894,949</td><td class="td-n ok">0</td><td class="td-n er">0</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct er">0.0%</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-pending"></span>Contact Point Phone</td><td class="td-n">3,897,147</td><td class="td-n ok">0</td><td class="td-n er">0</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct er">0.0%</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-pending"></span>Household Account</td><td class="td-n">302,226</td><td class="td-n ok">0</td><td class="td-n er">0</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct er">0.0%</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-pending"></span>Org Account</td><td class="td-n">70,521</td><td class="td-n ok">0</td><td class="td-n er">0</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct er">0.0%</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-pending"></span>Person Account</td><td class="td-n">6,590,317</td><td class="td-n ok">0</td><td class="td-n er">0</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct er">0.0%</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-pending"></span>Account Account Relation</td><td class="td-n">1,578</td><td class="td-n ok">&mdash;</td><td class="td-n er">&mdash;</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct dim">&mdash;</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-pending"></span>Account Contact Relation</td><td class="td-n">54,968</td><td class="td-n ok">&mdash;</td><td class="td-n er">&mdash;</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct dim">&mdash;</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-pending"></span>Account Team Member</td><td class="td-n">0</td><td class="td-n ok">&mdash;</td><td class="td-n er">&mdash;</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct dim">&mdash;</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-pending"></span>Committee Account</td><td class="td-n">6,051</td><td class="td-n ok">&mdash;</td><td class="td-n er">&mdash;</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct dim">&mdash;</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-pending"></span>Contact Contact Relation</td><td class="td-n">163,386</td><td class="td-n ok">&mdash;</td><td class="td-n er">&mdash;</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct dim">&mdash;</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-pending"></span>Contact Point Address</td><td class="td-n">10,411,331</td><td class="td-n ok">&mdash;</td><td class="td-n er">&mdash;</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct dim">&mdash;</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-pending"></span>Contact Point Email</td><td class="td-n">2,894,949</td><td class="td-n ok">&mdash;</td><td class="td-n er">&mdash;</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct dim">&mdash;</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-pending"></span>Contact Point Phone</td><td class="td-n">3,897,147</td><td class="td-n ok">&mdash;</td><td class="td-n er">&mdash;</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct dim">&mdash;</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-pending"></span>Household Account</td><td class="td-n">302,226</td><td class="td-n ok">&mdash;</td><td class="td-n er">&mdash;</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct dim">&mdash;</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-pending"></span>Org Account</td><td class="td-n">70,521</td><td class="td-n ok">&mdash;</td><td class="td-n er">&mdash;</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct dim">&mdash;</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-pending"></span>Person Account</td><td class="td-n">6,590,317</td><td class="td-n ok">&mdash;</td><td class="td-n er">&mdash;</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct dim">&mdash;</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
       </tbody>
     </table>
   </div>
@@ -258,7 +259,7 @@ tr:hover td{background:#14202f}
   </div>
 
   <div class="foot">
-    <div>Generated <span class="ts">2026-06-26 17:07</span> &middot; ADA CARE BBCRM &rarr; Salesforce NPC Migration</div>
+    <div>Generated <span class="ts">2026-06-26 17:09</span> &middot; ADA CARE BBCRM &rarr; Salesforce NPC Migration</div>
     <div>Aggregate metrics only &mdash; no constituent / PII data is published on this page.</div>
   </div>
 
