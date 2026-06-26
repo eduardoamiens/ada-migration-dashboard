@@ -67,7 +67,8 @@ tr:hover td{background:#14202f}
 .td-n.ok{color:#4ade80}.td-n.er{color:#f87171}
 .td-pct{text-align:right;font-family:'Consolas',monospace;font-weight:700;color:#cfe0ee;width:64px}
 .td-pct.ok{color:#4ade80}.td-pct.warn{color:#fbbf24}.td-pct.er{color:#f87171}.td-pct.dim{color:#456279}
-.td-bar{width:34%;min-width:140px}
+.td-bar{width:30%;min-width:140px}
+.td-wave{text-align:center;color:#6d8a9c;font-family:'Consolas',monospace;width:54px}
 .td-badge{white-space:nowrap;width:1%}
 .bar-proj{background:linear-gradient(90deg,#0b5cab,#38bdf8)}
 .bar-load{background:linear-gradient(90deg,#15803d,#4ade80)}
@@ -116,67 +117,85 @@ tr:hover td{background:#14202f}
   <!-- KPI cards -->
   <div class="kpis">
     <div class="kpi k-purple">
-      <div class="v">42%</div>
-      <div class="l">Overall Project</div>
-      <div class="s">Mapping + ETL readiness</div>
+      <div class="v">72%</div>
+      <div class="l">ETL Completeness</div>
+      <div class="s">Wired fields / mappable fields</div>
     </div>
     <div class="kpi k-blue">
-      <div class="v">7/18</div>
-      <div class="l">Objects ETL-Ready</div>
-      <div class="s">&ge; 90% complete</div>
-    </div>
-    <div class="kpi k-green">
-      <div class="v">14,933,405</div>
-      <div class="l">Records Loaded</div>
-      <div class="s">Confirmed in Salesforce</div>
+      <div class="v">22/31</div>
+      <div class="l">Objects Ready to Migrate</div>
+      <div class="s">Loadable now via upsert</div>
     </div>
     <div class="kpi k-amber">
-      <div class="v">24,392,474</div>
-      <div class="l">Records Staged</div>
-      <div class="s">Ready in staging layer</div>
+      <div class="v">166</div>
+      <div class="l">Blocked Items</div>
+      <div class="s">Need decision / deploy / probe</div>
+    </div>
+    <div class="kpi k-green">
+      <div class="v">0</div>
+      <div class="l">Records Loaded (last run)</div>
+      <div class="s">of 24,392,474 staged</div>
     </div>
     <div class="kpi k-red">
-      <div class="v">3,204,133</div>
-      <div class="l">Load Rejections</div>
-      <div class="s">82.3% pass rate</div>
+      <div class="v">0</div>
+      <div class="l">Load Rejections (last run)</div>
+      <div class="s">0.0% pass rate</div>
     </div>
   </div>
 
   <!-- Project progress -->
   <div class="section">
-    <h2>Project Progress &mdash; by Object</h2>
-    <div class="desc">Completion = confirmed field mapping + ETL script availability.
-      Source: Master Architecture Overview (Section 1.2).</div>
+    <h2>ETL Completeness &mdash; by Object</h2>
+    <div class="desc">Per-object build state from the reconciled ETL completeness audit.
+      <b>Script%</b> = wired fields &divide; mappable fields (confirmed &minus; no-source).
+      <b>Risk%</b> = blocked fields &divide; mappable. <b>Ready</b> = loadable now via idempotent
+      upsert (remaining items backfillable by re-upsert, no destructive reload).
+      Source: <code>ETL_Completeness_Audit_2026-06-26.md</code>.</div>
     <div class="hero">
       <div class="hero-top">
-        <span class="hero-lbl">Overall completion</span>
-        <span class="hero-pct" style="color:#f59e0b">42%</span>
+        <span class="hero-lbl">Overall ETL completeness &middot; 22/31 objects ready</span>
+        <span class="hero-pct" style="color:#f59e0b">72%</span>
       </div>
-      <div class="bar-track"><div class="bar-fill bar-proj" style="width:42.0%"></div></div>
+      <div class="bar-track"><div class="bar-fill bar-proj" style="width:72.0%"></div></div>
     </div>
     <table>
       <thead><tr>
-        <th>Object</th><th>Progress</th><th class="td-pct">%</th><th>Status</th>
+        <th>Object</th><th class="td-wave">Wave</th><th>Completeness</th>
+        <th class="td-pct">Script%</th><th class="td-pct">Risk%</th>
+        <th class="td-n">Blocked</th><th>Status</th>
       </tr></thead>
       <tbody>
-<tr><td class="td-name"><span class="dot dot-done"></span>Gift Soft Credit</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:98.0%"></div></div></td><td class="td-pct">98%</td><td class="td-badge"><span class="badge b-ok">ETL Ready</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-done"></span>Gift Transaction Designation</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:92.0%"></div></div></td><td class="td-pct">92%</td><td class="td-badge"><span class="badge b-ok">ETL Ready</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-done"></span>Org Account</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:92.0%"></div></div></td><td class="td-pct">92%</td><td class="td-badge"><span class="badge b-ok">ETL Ready</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-done"></span>Committee Account</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:90.0%"></div></div></td><td class="td-pct">90%</td><td class="td-badge"><span class="badge b-ok">ETL Ready</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-done"></span>ContactPointAddress</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:90.0%"></div></div></td><td class="td-pct">90%</td><td class="td-badge"><span class="badge b-ok">ETL Ready</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-done"></span>ContactPointEmail</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:90.0%"></div></div></td><td class="td-pct">90%</td><td class="td-badge"><span class="badge b-ok">ETL Ready</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-done"></span>ContactPointPhone</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:90.0%"></div></div></td><td class="td-pct">90%</td><td class="td-badge"><span class="badge b-ok">ETL Ready</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-progress"></span>Opportunity Team Member</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:88.0%"></div></div></td><td class="td-pct">88%</td><td class="td-badge"><span class="badge b-warn">In Progress</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-progress"></span>Person Account</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:85.0%"></div></div></td><td class="td-pct">85%</td><td class="td-badge"><span class="badge b-warn">In Progress</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-progress"></span>Gift Transaction (Opportunity)</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:70.0%"></div></div></td><td class="td-pct">70%</td><td class="td-badge"><span class="badge b-warn">In Progress</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-progress"></span>Transaction Journal (ASL)</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:68.0%"></div></div></td><td class="td-pct">68%</td><td class="td-badge"><span class="badge b-warn">In Progress</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-progress"></span>Household Account</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:60.0%"></div></div></td><td class="td-pct">60%</td><td class="td-badge"><span class="badge b-warn">In Progress</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-early"></span>Relationship / AccountRelations</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:28.0%"></div></div></td><td class="td-pct">28%</td><td class="td-badge"><span class="badge b-early">Early</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-early"></span>Task / Event (Interactions)</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:25.0%"></div></div></td><td class="td-pct">25%</td><td class="td-badge"><span class="badge b-early">Early</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-notstarted"></span>Campaign</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:8.0%"></div></div></td><td class="td-pct">8%</td><td class="td-badge"><span class="badge b-pend">Not Started</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-notstarted"></span>Gift Commitment</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:5.0%"></div></div></td><td class="td-pct">5%</td><td class="td-badge"><span class="badge b-pend">Not Started</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-notstarted"></span>Planned Gift</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:5.0%"></div></div></td><td class="td-pct">5%</td><td class="td-badge"><span class="badge b-pend">Not Started</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-notstarted"></span>Campaign Member</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:0.0%"></div></div></td><td class="td-pct">0%</td><td class="td-badge"><span class="badge b-pend">Not Started</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>AccountContactRelation</td><td class="td-wave">2/3</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:100.0%"></div></div></td><td class="td-pct">100%</td><td class="td-pct ok">0%</td><td class="td-n">0</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>ContactPointEmail</td><td class="td-wave">2</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:100.0%"></div></div></td><td class="td-pct">100%</td><td class="td-pct ok">0%</td><td class="td-n">0</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>HouseholdAccount</td><td class="td-wave">2</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:100.0%"></div></div></td><td class="td-pct">100%</td><td class="td-pct ok">0%</td><td class="td-n">0</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>OrgAccount</td><td class="td-wave">2</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:100.0%"></div></div></td><td class="td-pct">100%</td><td class="td-pct ok">0%</td><td class="td-n">0</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>Campaign</td><td class="td-wave">5/7</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:93.0%"></div></div></td><td class="td-pct">93%</td><td class="td-pct ok">13%</td><td class="td-n">5</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>ContactPointAddress</td><td class="td-wave">2</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:92.0%"></div></div></td><td class="td-pct">92%</td><td class="td-pct ok">8%</td><td class="td-n">1</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>PersonAccount</td><td class="td-wave">1</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:90.0%"></div></div></td><td class="td-pct">90%</td><td class="td-pct ok">10%</td><td class="td-n">8</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>AccountTeamMember</td><td class="td-wave">6</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:89.0%"></div></div></td><td class="td-pct">89%</td><td class="td-pct ok">11%</td><td class="td-n">1</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>CommitteeAccount</td><td class="td-wave">2</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:89.0%"></div></div></td><td class="td-pct">89%</td><td class="td-pct ok">11%</td><td class="td-n">1</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>GivingSocietyMembership</td><td class="td-wave">8</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:88.0%"></div></div></td><td class="td-pct">88%</td><td class="td-pct ok">13%</td><td class="td-n">1</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>Opportunity (proposal)</td><td class="td-wave">9</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:88.0%"></div></div></td><td class="td-pct">88%</td><td class="td-pct ok">12%</td><td class="td-n">2</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>GiftSoftCredit</td><td class="td-wave">8</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:83.0%"></div></div></td><td class="td-pct">83%</td><td class="td-pct warn">17%</td><td class="td-n">1</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>GiftTransactionDesignation</td><td class="td-wave">8</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:83.0%"></div></div></td><td class="td-pct">83%</td><td class="td-pct warn">17%</td><td class="td-n">1</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>OpportunityTeamMember</td><td class="td-wave">9</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:83.0%"></div></div></td><td class="td-pct">83%</td><td class="td-pct warn">17%</td><td class="td-n">1</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>GiftDesignation</td><td class="td-wave">8</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:82.0%"></div></div></td><td class="td-pct">82%</td><td class="td-pct warn">18%</td><td class="td-n">2</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>Task / Event</td><td class="td-wave">4/6</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:76.0%"></div></div></td><td class="td-pct">76%</td><td class="td-pct warn">24%</td><td class="td-n">7</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>ContactPointPhone</td><td class="td-wave">2</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:71.0%"></div></div></td><td class="td-pct">71%</td><td class="td-pct warn">29%</td><td class="td-n">2</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>AlternateID</td><td class="td-wave">2</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:70.0%"></div></div></td><td class="td-pct">70%</td><td class="td-pct warn">30%</td><td class="td-n">3</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>Deposit</td><td class="td-wave">8</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:70.0%"></div></div></td><td class="td-pct">70%</td><td class="td-pct warn">30%</td><td class="td-n">3</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>GiftTransaction</td><td class="td-wave">8</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:48.0%"></div></div></td><td class="td-pct">48%</td><td class="td-pct er">52%</td><td class="td-n">41</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>GiftTribute</td><td class="td-wave">8</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:44.0%"></div></div></td><td class="td-pct">44%</td><td class="td-pct er">56%</td><td class="td-n">9</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>GiftBatch</td><td class="td-wave">8</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:30.0%"></div></div></td><td class="td-pct">30%</td><td class="td-pct er">70%</td><td class="td-n">14</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-progress"></span>GiftCommitment</td><td class="td-wave">7</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:91.0%"></div></div></td><td class="td-pct">91%</td><td class="td-pct ok">9%</td><td class="td-n">3</td><td class="td-badge"><span class="badge b-warn">Blocked</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-progress"></span>AccountAccountRelation</td><td class="td-wave">3/4</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:86.0%"></div></div></td><td class="td-pct">86%</td><td class="td-pct ok">14%</td><td class="td-n">1</td><td class="td-badge"><span class="badge b-warn">Blocked</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-progress"></span>ContactContactRelation</td><td class="td-wave">2/3</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:86.0%"></div></div></td><td class="td-pct">86%</td><td class="td-pct ok">14%</td><td class="td-n">1</td><td class="td-badge"><span class="badge b-warn">Blocked</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-progress"></span>CampaignMember</td><td class="td-wave">5</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:80.0%"></div></div></td><td class="td-pct">80%</td><td class="td-pct warn">20%</td><td class="td-n">1</td><td class="td-badge"><span class="badge b-warn">Blocked</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-progress"></span>GiftCommitmentSchedule</td><td class="td-wave">7</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:71.0%"></div></div></td><td class="td-pct">71%</td><td class="td-pct warn">29%</td><td class="td-n">5</td><td class="td-badge"><span class="badge b-warn">Blocked</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-failed"></span>PlannedGift — Estate</td><td class="td-wave">7/8</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:38.0%"></div></div></td><td class="td-pct">38%</td><td class="td-pct er">63%</td><td class="td-n">5</td><td class="td-badge"><span class="badge b-warn">Blocked</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-failed"></span>PlannedGift — Planned Giving</td><td class="td-wave">7/8</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:31.0%"></div></div></td><td class="td-pct">31%</td><td class="td-pct er">69%</td><td class="td-n">9</td><td class="td-badge"><span class="badge b-warn">Blocked</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-failed"></span>OutreachSourceCode</td><td class="td-wave">5</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:30.0%"></div></div></td><td class="td-pct">30%</td><td class="td-pct er">70%</td><td class="td-n">14</td><td class="td-badge"><span class="badge b-warn">Blocked</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-failed"></span>GiftTxnStateOfDiabetes</td><td class="td-wave">8</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:14.0%"></div></div></td><td class="td-pct">14%</td><td class="td-pct er">86%</td><td class="td-n">24</td><td class="td-badge"><span class="badge b-warn">Blocked</span></td></tr>
       </tbody>
     </table>
   </div>
@@ -184,18 +203,23 @@ tr:hover td{background:#14202f}
   <!-- Load progress -->
   <div class="section">
     <h2>Load Progress &mdash; Records into Salesforce</h2>
-    <div class="desc">Aggregate counts only (no record-level data). Coverage = loaded &divide; staged.</div>
+    <div class="desc">Aggregate counts only (no record-level data). Coverage = loaded &divide; staged.
+      <b>Basis:</b> Staged = rows in the staging CSVs (<code>03_CleanedStaging/stg_*.csv</code>);
+      Loaded / Failed = rows in the Bulk&nbsp;API result logs from the <b>last run</b>
+      (<code>99_Logs/*_success.csv</code> / <code>*_error.csv</code>, chunked logs rolled up).
+      This reflects the most recent load attempt, not a live query of the Salesforce org &mdash;
+      after a re-run it updates when the dashboard is regenerated.</div>
     <div class="hero">
       <div class="hero-top">
         <span class="hero-lbl">Overall load coverage</span>
-        <span class="hero-pct" style="color:#22c55e">61.2%</span>
+        <span class="hero-pct" style="color:#ef4444">0.0%</span>
       </div>
-      <div class="bar-track"><div class="bar-fill bar-load" style="width:61.2%"></div></div>
+      <div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div>
     </div>
     <div class="totals">
       <span><b>24,392,474</b> staged</span>
-      <span><b>14,933,405</b> loaded</span>
-      <span><b>3,204,133</b> failed</span>
+      <span><b>0</b> loaded</span>
+      <span><b>0</b> failed</span>
       <span><b>3,263,364</b> in retry queue</span>
       <span><b>11</b> objects tracked</span>
     </div>
@@ -210,30 +234,31 @@ tr:hover td{background:#14202f}
         <th>Status</th>
       </tr></thead>
       <tbody>
-<tr><td class="td-name"><span class="dot dot-success"></span>Contact Contact Relation</td><td class="td-n">163,386</td><td class="td-n ok">46</td><td class="td-n er">0</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct er">0.0%</td><td class="td-badge"><span class="badge b-ok">Success</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-success"></span>Household Account</td><td class="td-n">302,226</td><td class="td-n ok">302,226</td><td class="td-n er">0</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:100.0%"></div></div></td><td class="td-pct ok">100.0%</td><td class="td-badge"><span class="badge b-ok">Success</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-partial"></span>Account Contact Relation</td><td class="td-n">54,968</td><td class="td-n ok">34,303</td><td class="td-n er">20,665</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:62.4%"></div></div></td><td class="td-pct er">62.4%</td><td class="td-badge"><span class="badge b-warn">Partial</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-partial"></span>Committee Account</td><td class="td-n">6,051</td><td class="td-n ok">6,049</td><td class="td-n er">2</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:100.0%"></div></div></td><td class="td-pct ok">100.0%</td><td class="td-badge"><span class="badge b-warn">Partial</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-partial"></span>Contact Point Address</td><td class="td-n">10,411,331</td><td class="td-n ok">6,810,095</td><td class="td-n er">2,588,681</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:65.4%"></div></div></td><td class="td-pct er">65.4%</td><td class="td-badge"><span class="badge b-warn">Partial</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-partial"></span>Contact Point Email</td><td class="td-n">2,894,949</td><td class="td-n ok">2,392,300</td><td class="td-n er">504,291</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:82.6%"></div></div></td><td class="td-pct er">82.6%</td><td class="td-badge"><span class="badge b-warn">Partial</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-partial"></span>Org Account</td><td class="td-n">70,521</td><td class="td-n ok">67,612</td><td class="td-n er">2,909</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:95.9%"></div></div></td><td class="td-pct warn">95.9%</td><td class="td-badge"><span class="badge b-warn">Partial</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-partial"></span>Person Account</td><td class="td-n">6,590,317</td><td class="td-n ok">5,320,774</td><td class="td-n er">86,007</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:80.7%"></div></div></td><td class="td-pct er">80.7%</td><td class="td-badge"><span class="badge b-warn">Partial</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-failed"></span>Account Account Relation</td><td class="td-n">1,578</td><td class="td-n ok">0</td><td class="td-n er">1,578</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct er">0.0%</td><td class="td-badge"><span class="badge b-err">Failed</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-pending"></span>Account Account Relation</td><td class="td-n">1,578</td><td class="td-n ok">0</td><td class="td-n er">0</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct er">0.0%</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-pending"></span>Account Contact Relation</td><td class="td-n">54,968</td><td class="td-n ok">0</td><td class="td-n er">0</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct er">0.0%</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
 <tr><td class="td-name"><span class="dot dot-pending"></span>Account Team Member</td><td class="td-n">0</td><td class="td-n ok">0</td><td class="td-n er">0</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct dim">—</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-pending"></span>Committee Account</td><td class="td-n">6,051</td><td class="td-n ok">0</td><td class="td-n er">0</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct er">0.0%</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-pending"></span>Contact Contact Relation</td><td class="td-n">163,386</td><td class="td-n ok">0</td><td class="td-n er">0</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct er">0.0%</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-pending"></span>Contact Point Address</td><td class="td-n">10,411,331</td><td class="td-n ok">0</td><td class="td-n er">0</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct er">0.0%</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-pending"></span>Contact Point Email</td><td class="td-n">2,894,949</td><td class="td-n ok">0</td><td class="td-n er">0</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct er">0.0%</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
 <tr><td class="td-name"><span class="dot dot-pending"></span>Contact Point Phone</td><td class="td-n">3,897,147</td><td class="td-n ok">0</td><td class="td-n er">0</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct er">0.0%</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-pending"></span>Household Account</td><td class="td-n">302,226</td><td class="td-n ok">0</td><td class="td-n er">0</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct er">0.0%</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-pending"></span>Org Account</td><td class="td-n">70,521</td><td class="td-n ok">0</td><td class="td-n er">0</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct er">0.0%</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-pending"></span>Person Account</td><td class="td-n">6,590,317</td><td class="td-n ok">0</td><td class="td-n er">0</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct er">0.0%</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
       </tbody>
     </table>
   </div>
 
   <div class="note">
-    <b>How to read this:</b> "Project Progress" tracks how much of each object is mapped and
-    has ETL built. "Load Progress" tracks how many records have actually been loaded into the
-    Salesforce target so far. Figures are <b>as-of the last refresh</b> (timestamp below) &mdash;
-    this is a snapshot regenerated from the migration workspace, not a live stream.
+    <b>How to read this:</b> "ETL Completeness" tracks how much of each object's field mapping is
+    actually wired end-to-end in the scripts and whether it is loadable now (honest about blocked
+    and re-run items). "Load Progress" tracks how many records the last Bulk&nbsp;API run loaded into
+    Salesforce. Both are <b>as-of the last refresh</b> (timestamp below) &mdash; a snapshot
+    regenerated from the migration workspace, not a live stream.
   </div>
 
   <div class="foot">
-    <div>Generated <span class="ts">2026-06-26 16:43</span> &middot; ADA CARE BBCRM &rarr; Salesforce NPC Migration</div>
+    <div>Generated <span class="ts">2026-06-26 17:07</span> &middot; ADA CARE BBCRM &rarr; Salesforce NPC Migration</div>
     <div>Aggregate metrics only &mdash; no constituent / PII data is published on this page.</div>
   </div>
 
