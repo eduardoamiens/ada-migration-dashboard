@@ -9,45 +9,49 @@
 <meta http-equiv="Expires" content="0"/>
 <title>ADA CARE Migration — Progress Dashboard</title>
 <style>
+/* Light theme, Salesforce Lightning (SLDS) look & feel */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0a0f1c; --card:#111b2e; --card2:#152138; --line:#203049; --line2:#2a3c59;
-  --txt:#eaf1fb; --muted:#93a6c0; --dim:#647a98;
-  --blue:#1b96ff; --cyan:#27c4f5; --green:#2dd4a7; --amber:#f6b73c; --red:#ff6b6b;
+  --bg:#f3f3f3; --card:#ffffff; --shell:#fafaf9;
+  --line:#e5e5e5; --line2:#dddbda; --rowline:#f3f2f2;
+  --txt:#181818; --txt2:#3e3e3c; --muted:#706e6b; --dim:#969492;
+  --blue:#0176d3; --blue-d:#014486; --blue-l:#1b96ff;
+  --green:#2e844a; --amber:#dd7a01; --red:#ba0517;
+  --track:#ecebea;
 }
 html{scroll-behavior:smooth}
-body{background:radial-gradient(1200px 600px at 80% -10%,#11233f 0,var(--bg) 55%) fixed,var(--bg);
-  color:var(--txt);font-size:14px;line-height:1.55;
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,system-ui,Arial,sans-serif;
+body{background:var(--bg);color:var(--txt2);font-size:14px;line-height:1.55;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Salesforce Sans',system-ui,Arial,sans-serif;
   -webkit-font-smoothing:antialiased}
 .wrap{max-width:1200px;margin:0 auto;padding:24px 22px 72px}
 a{color:var(--blue)}
 
 /* Top bar */
 .topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:16px;
-  padding:14px 22px;background:rgba(9,15,27,.82);backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--line)}
-.topbar .logo{height:32px;width:auto;display:block}
-.topbar .logo-text{font-size:22px;font-weight:800;color:#fff;font-style:italic}
-.topbar h1{font-size:16px;font-weight:700;color:#fff;letter-spacing:.01em}
+  padding:13px 22px;background:#fff;border-bottom:1px solid var(--line);
+  box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.topbar::before{content:'';position:fixed;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--blue-d),var(--blue),var(--blue-l));z-index:21}
+.topbar .logo{height:30px;width:auto;display:block}
+.topbar .logo-text{font-size:22px;font-weight:800;color:var(--blue);font-style:italic}
+.topbar h1{font-size:16px;font-weight:700;color:var(--txt);letter-spacing:.01em}
 .topbar .sub{font-size:11px;color:var(--muted);margin-top:1px}
 .topbar .right{margin-left:auto;text-align:right;font-size:10px;text-transform:uppercase;
   letter-spacing:.08em;color:var(--dim)}
 .topbar .right b{display:block;font-size:13px;text-transform:none;letter-spacing:0;
-  color:#cfe0f3;font-weight:700;margin-top:2px}
+  color:var(--txt);font-weight:700;margin-top:2px}
 
 /* Hero gauges */
 .hero{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:22px 0}
-.hcard{background:linear-gradient(160deg,var(--card),var(--card2));border:1px solid var(--line);
-  border-radius:18px;padding:24px;display:flex;gap:24px;align-items:center;
-  box-shadow:0 10px 30px rgba(0,0,0,.25)}
-.gauge{position:relative;width:128px;height:128px;flex:0 0 auto}
-.gauge .ring{width:128px;height:128px;border-radius:50%;
-  background:conic-gradient(var(--c) calc(var(--p)*3.6deg),var(--track,#1e2c44) 0);
-  -webkit-mask:radial-gradient(farthest-side,#0000 calc(100% - 14px),#000 calc(100% - 13px));
-          mask:radial-gradient(farthest-side,#0000 calc(100% - 14px),#000 calc(100% - 13px))}
+.hcard{background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:22px 24px;display:flex;gap:24px;align-items:center;box-shadow:0 2px 4px rgba(0,0,0,.05)}
+.gauge{position:relative;width:124px;height:124px;flex:0 0 auto}
+.gauge .ring{width:124px;height:124px;border-radius:50%;
+  background:conic-gradient(var(--c) calc(var(--p)*3.6deg),var(--track) 0);
+  -webkit-mask:radial-gradient(farthest-side,#0000 calc(100% - 13px),#000 calc(100% - 12px));
+          mask:radial-gradient(farthest-side,#0000 calc(100% - 13px),#000 calc(100% - 12px))}
 .gauge .hole{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
-.gauge .gv{font-size:30px;font-weight:800;color:var(--txt);line-height:1}
+.gauge .gv{font-size:27px;font-weight:800;color:var(--txt);line-height:1}
 .gauge .gl{font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-top:5px}
 .hbody{flex:1;min-width:0}
 .hbody h3{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700}
@@ -59,64 +63,67 @@ a{color:var(--blue)}
 .stat .k{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-top:3px}
 
 /* Cards / sections */
-.card{background:var(--card);border:1px solid var(--line);border-radius:18px;
-  margin:18px 0;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.2)}
-.card .head{padding:20px 24px 16px;border-bottom:1px solid var(--line)}
-.card h2{font-size:15px;color:#fff;font-weight:700;display:flex;align-items:center;gap:10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+  margin:18px 0;overflow:hidden;box-shadow:0 2px 4px rgba(0,0,0,.05)}
+.card .head{padding:18px 22px 15px;border-bottom:1px solid var(--line);background:var(--shell)}
+.card h2{font-size:15px;color:var(--txt);font-weight:700;display:flex;align-items:center;gap:10px}
 .card h2 .dotmark{width:9px;height:9px;border-radius:50%;background:var(--blue)}
 .card h2 .dotmark.green{background:var(--green)}
-.card .desc{font-size:11.5px;color:var(--muted);margin-top:8px;line-height:1.65;max-width:980px}
-.card .desc b{color:#c4d6ec}
-.card .desc code{background:#0c1424;border:1px solid var(--line);padding:1px 6px;border-radius:6px;
-  color:#a9c2dd;font-size:10.5px;font-family:'SFMono-Regular',Consolas,monospace}
-.banner{margin:14px 24px 0;padding:11px 14px;border-radius:10px;font-size:11.5px;
-  background:rgba(246,183,60,.08);border:1px solid rgba(246,183,60,.32);color:#f3cd86}
-.tablewrap{padding:8px 12px 14px;overflow-x:auto}
+.card .desc{font-size:11.5px;color:var(--muted);margin-top:8px;line-height:1.65;max-width:1000px}
+.card .desc b{color:var(--txt2)}
+.card .desc code{background:#f3f2f2;border:1px solid var(--line);padding:1px 6px;border-radius:5px;
+  color:var(--blue-d);font-size:10.5px;font-family:'SFMono-Regular',Consolas,monospace}
+.banner{margin:14px 22px 0;padding:11px 14px;border-radius:8px;font-size:11.5px;
+  background:#fef3e7;border:1px solid #fdc689;color:#8a5200}
+.tablewrap{padding:4px 6px 10px;overflow-x:auto}
 
 /* Tables */
 table{width:100%;border-collapse:collapse;font-size:13px}
-th{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);
+th{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);
   font-weight:700;text-align:left;padding:11px 12px;border-bottom:1px solid var(--line2);white-space:nowrap}
 th.td-n,th.td-pct{text-align:right}
-td{padding:10px 12px;border-bottom:1px solid #16212f;vertical-align:middle}
+td{padding:9px 12px;border-bottom:1px solid var(--rowline);vertical-align:middle}
 tbody tr:last-child td{border-bottom:none}
-tbody tr:nth-child(even){background:rgba(255,255,255,.014)}
-tbody tr:hover td{background:rgba(27,150,255,.07)}
-.td-name{font-weight:600;color:#d7e3f2;min-width:180px}
-.td-n{text-align:right;font-family:'SFMono-Regular',Consolas,monospace;color:#9fb4cc;
-  white-space:nowrap;font-variant-numeric:tabular-nums}
+tbody tr:hover td{background:#f3f9ff}
+.td-name{font-weight:600;color:var(--txt);min-width:170px}
+.td-n{text-align:right;font-family:'SFMono-Regular',Consolas,monospace;color:var(--txt2);
+  white-space:nowrap;font-variant-numeric:tabular-nums;width:48px}
 .td-n.ok{color:var(--green)}.td-n.er{color:var(--red)}
 .td-pct{text-align:right;font-family:'SFMono-Regular',Consolas,monospace;font-weight:700;
-  color:#dce8f5;width:70px;font-variant-numeric:tabular-nums}
+  color:var(--txt);width:64px;font-variant-numeric:tabular-nums}
 .td-pct.ok{color:var(--green)}.td-pct.warn{color:var(--amber)}.td-pct.er{color:var(--red)}.td-pct.dim{color:var(--dim)}
-.td-bar{width:30%;min-width:150px}
-.td-wave{text-align:center;color:var(--muted);font-family:'SFMono-Regular',Consolas,monospace;width:56px}
-.td-badge{white-space:nowrap;width:1%}
-.bar-track{height:8px;background:#1b2840;border-radius:6px;overflow:hidden}
-.bar-fill{height:100%;border-radius:6px;transition:width 1s ease}
-.bar-proj{background:linear-gradient(90deg,#1b96ff,#27c4f5)}
-.bar-load{background:linear-gradient(90deg,#16a34a,#2dd4a7)}
+.td-bar{width:22%;min-width:130px}
+.td-bar .barv{font-family:'SFMono-Regular',Consolas,monospace;font-size:11px;font-weight:700;
+  color:var(--txt2);margin-left:8px;vertical-align:middle}
+.td-wave{text-align:center;color:var(--muted);font-family:'SFMono-Regular',Consolas,monospace;width:54px}
+.td-badge{white-space:nowrap}
+.cav{font-size:10.5px;color:var(--muted);margin-left:7px}
+.bar-track{height:7px;background:var(--track);border-radius:5px;overflow:hidden;display:inline-block;
+  width:calc(100% - 52px);vertical-align:middle}
+.bar-fill{height:100%;border-radius:5px;transition:width 1s ease}
+.bar-proj{background:linear-gradient(90deg,#1b96ff,#0176d3)}
+.bar-load{background:linear-gradient(90deg,#2e844a,#45c65a)}
 
 /* dots + pills */
 .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:10px;vertical-align:middle}
-.dot-done,.dot-success{background:var(--green);box-shadow:0 0 0 3px rgba(45,212,167,.15)}
-.dot-progress,.dot-partial{background:var(--amber);box-shadow:0 0 0 3px rgba(246,183,60,.15)}
-.dot-early,.dot-pending{background:var(--cyan);box-shadow:0 0 0 3px rgba(39,196,245,.15)}
-.dot-failed{background:var(--red);box-shadow:0 0 0 3px rgba(255,107,107,.15)}
-.dot-notstarted,.dot-skipped{background:#46597a}
-.badge{display:inline-block;padding:3px 11px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap}
-.b-ok{background:rgba(45,212,167,.13);color:#5ee3bf;border:1px solid rgba(45,212,167,.4)}
-.b-warn{background:rgba(246,183,60,.12);color:#f3c878;border:1px solid rgba(246,183,60,.38)}
-.b-err{background:rgba(255,107,107,.12);color:#ff9090;border:1px solid rgba(255,107,107,.4)}
-.b-early{background:rgba(39,196,245,.12);color:#7fd9f6;border:1px solid rgba(39,196,245,.38)}
-.b-pend{background:rgba(39,196,245,.1);color:#8fd6f3;border:1px solid rgba(39,196,245,.3)}
-.b-skip{background:rgba(255,255,255,.05);color:#9fb1c8;border:1px solid var(--line2)}
+.dot-done,.dot-success{background:var(--green)}
+.dot-progress,.dot-partial{background:var(--amber)}
+.dot-early,.dot-pending{background:var(--blue)}
+.dot-failed{background:var(--red)}
+.dot-notstarted,.dot-skipped{background:#c9c7c5}
+.badge{display:inline-block;padding:2px 11px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap}
+.b-ok{background:#def9e7;color:#1c6b34;border:1px solid #9adfb0}
+.b-warn{background:#fef3e7;color:#8a5200;border:1px solid #fdc689}
+.b-err{background:#fde7e9;color:#a30311;border:1px solid #f5a3ad}
+.b-early{background:#eaf5fe;color:#014486;border:1px solid #a5d2f7}
+.b-pend{background:#eaf5fe;color:#0176d3;border:1px solid #a5d2f7}
+.b-skip{background:#f3f2f2;color:#706e6b;border:1px solid var(--line2)}
 .no-data{color:var(--dim);font-style:italic;text-align:center;padding:22px}
 
 /* footer */
-.note{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:14px;
+.note{background:var(--shell);border:1px solid var(--line);border-radius:12px;
   padding:14px 18px;font-size:11.5px;color:var(--muted);line-height:1.7}
-.note b{color:#c4d6ec}
+.note b{color:var(--txt2)}
 .foot{margin-top:22px;font-size:11px;color:var(--dim);line-height:1.8;text-align:center}
 .foot .ts{color:var(--muted);font-weight:600}
 
@@ -136,7 +143,7 @@ tbody tr:hover td{background:rgba(27,150,255,.07)}
     <h1>ADA CARE — Migration Progress</h1>
     <div class="sub">BBCRM &rarr; Salesforce Nonprofit Cloud (NPC)</div>
   </div>
-  <div class="right">Last updated<b>2026-06-26 17:32</b></div>
+  <div class="right">Last updated<b>2026-06-27 16:47</b></div>
 </header>
 
 <div class="wrap">
@@ -145,85 +152,84 @@ tbody tr:hover td{background:rgba(27,150,255,.07)}
   <div class="hero">
     <div class="hcard">
       <div class="gauge">
-        <div class="ring" style="--p:72;--c:#f6b73c"></div>
-        <div class="hole"><div><div class="gv">72%</div><div class="gl">Complete</div></div></div>
+        <div class="ring" style="--p:71;--c:#f6b73c"></div>
+        <div class="hole"><div><div class="gv">22/31</div><div class="gl">Ready</div></div></div>
       </div>
       <div class="hbody">
         <h3>ETL Build Readiness</h3>
         <div class="big">22 of 31 objects ready to migrate</div>
         <div class="statrow">
-          <div class="stat"><div class="n green">22</div><div class="k">Ready</div></div>
-          <div class="stat"><div class="n red">9</div><div class="k">Not ready</div></div>
-          <div class="stat"><div class="n amber">166</div><div class="k">Blocked items</div></div>
+          <div class="stat"><div class="n green">22</div><div class="k">Ready (S&iacute;)</div></div>
+          <div class="stat"><div class="n red">9</div><div class="k">Not ready (No)</div></div>
         </div>
       </div>
     </div>
     <div class="hcard">
       <div class="gauge">
-        <div class="ring" style="--p:0;--c:#56688a"></div>
-        <div class="hole"><div><div class="gv">n/a</div><div class="gl">Coverage</div></div></div>
+        <div class="ring" style="--p:0.0;--c:#ff6b6b"></div>
+        <div class="hole"><div><div class="gv">0%</div><div class="gl">Coverage</div></div></div>
       </div>
       <div class="hbody">
         <h3>Load Progress &middot; last run</h3>
-        <div class="big">No Bulk API result logs in this snapshot</div>
+        <div class="big">0 loaded of 24,392,474 staged</div>
         <div class="statrow">
           <div class="stat"><div class="n blue">24,392,474</div><div class="k">Staged</div></div>
-          <div class="stat"><div class="n green">&mdash;</div><div class="k">Loaded</div></div>
-          <div class="stat"><div class="n red">&mdash;</div><div class="k">Failed</div></div>
+          <div class="stat"><div class="n green">0</div><div class="k">Loaded</div></div>
+          <div class="stat"><div class="n red">1,578</div><div class="k">Failed</div></div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ETL completeness -->
+  <!-- ETL completeness — reproduced 1:1 from the audit §1 table -->
   <div class="card">
     <div class="head">
       <h2><span class="dotmark"></span>ETL Completeness &mdash; by Object</h2>
-      <div class="desc">Per-object build state from the reconciled ETL completeness audit.
-        <b>Script%</b> = wired fields &divide; mappable fields (confirmed &minus; no-source).
-        <b>Risk%</b> = blocked fields &divide; mappable. <b>Ready</b> = loadable now via idempotent
-        upsert (remaining items backfillable by re-upsert, no destructive reload).
+      <div class="desc">Reproduced verbatim from the audit &sect;1 table.
+        <b>C</b> = confirmed mapped fields &middot; <b>W</b> = wired &middot; <b>NA</b> = no BBCRM source &middot;
+        <b>B</b> = blocked. <b>Script%</b> = 100&middot;W/(C&minus;NA) &middot; <b>Risk%</b> = 100&middot;B/(C&minus;NA).
+        <b>Listo</b> = loadable now via idempotent upsert (caveat shown verbatim).
         Source: <code>ETL_Completeness_Audit_2026-06-26.md</code>.</div>
     </div>
     <div class="tablewrap">
       <table>
         <thead><tr>
-          <th>Object</th><th class="td-wave">Wave</th><th>Completeness</th>
-          <th class="td-pct">Script%</th><th class="td-pct">Risk%</th>
-          <th class="td-n">Blocked</th><th>Status</th>
+          <th>Object</th><th class="td-wave">Wave</th>
+          <th class="td-n">C</th><th class="td-n">W</th><th class="td-n">NA</th><th class="td-n">B</th>
+          <th>Script%</th><th class="td-pct">Risk%</th><th>Listo</th>
         </tr></thead>
         <tbody>
-<tr><td class="td-name"><span class="dot dot-done"></span>AccountContactRelation</td><td class="td-wave">2/3</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:100.0%"></div></div></td><td class="td-pct">100%</td><td class="td-pct ok">0%</td><td class="td-n">0</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-done"></span>ContactPointEmail</td><td class="td-wave">2</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:100.0%"></div></div></td><td class="td-pct">100%</td><td class="td-pct ok">0%</td><td class="td-n">0</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-done"></span>HouseholdAccount</td><td class="td-wave">2</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:100.0%"></div></div></td><td class="td-pct">100%</td><td class="td-pct ok">0%</td><td class="td-n">0</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-done"></span>OrgAccount</td><td class="td-wave">2</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:100.0%"></div></div></td><td class="td-pct">100%</td><td class="td-pct ok">0%</td><td class="td-n">0</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-done"></span>Campaign</td><td class="td-wave">5/7</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:93.0%"></div></div></td><td class="td-pct">93%</td><td class="td-pct ok">13%</td><td class="td-n">5</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-done"></span>ContactPointAddress</td><td class="td-wave">2</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:92.0%"></div></div></td><td class="td-pct">92%</td><td class="td-pct ok">8%</td><td class="td-n">1</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-done"></span>PersonAccount</td><td class="td-wave">1</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:90.0%"></div></div></td><td class="td-pct">90%</td><td class="td-pct ok">10%</td><td class="td-n">8</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-done"></span>AccountTeamMember</td><td class="td-wave">6</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:89.0%"></div></div></td><td class="td-pct">89%</td><td class="td-pct ok">11%</td><td class="td-n">1</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-done"></span>CommitteeAccount</td><td class="td-wave">2</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:89.0%"></div></div></td><td class="td-pct">89%</td><td class="td-pct ok">11%</td><td class="td-n">1</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-done"></span>GivingSocietyMembership</td><td class="td-wave">8</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:88.0%"></div></div></td><td class="td-pct">88%</td><td class="td-pct ok">13%</td><td class="td-n">1</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-done"></span>Opportunity (proposal)</td><td class="td-wave">9</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:88.0%"></div></div></td><td class="td-pct">88%</td><td class="td-pct ok">12%</td><td class="td-n">2</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-done"></span>GiftSoftCredit</td><td class="td-wave">8</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:83.0%"></div></div></td><td class="td-pct">83%</td><td class="td-pct warn">17%</td><td class="td-n">1</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-done"></span>GiftTransactionDesignation</td><td class="td-wave">8</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:83.0%"></div></div></td><td class="td-pct">83%</td><td class="td-pct warn">17%</td><td class="td-n">1</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-done"></span>OpportunityTeamMember</td><td class="td-wave">9</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:83.0%"></div></div></td><td class="td-pct">83%</td><td class="td-pct warn">17%</td><td class="td-n">1</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-done"></span>GiftDesignation</td><td class="td-wave">8</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:82.0%"></div></div></td><td class="td-pct">82%</td><td class="td-pct warn">18%</td><td class="td-n">2</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-done"></span>Task / Event</td><td class="td-wave">4/6</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:76.0%"></div></div></td><td class="td-pct">76%</td><td class="td-pct warn">24%</td><td class="td-n">7</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-done"></span>ContactPointPhone</td><td class="td-wave">2</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:71.0%"></div></div></td><td class="td-pct">71%</td><td class="td-pct warn">29%</td><td class="td-n">2</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-done"></span>AlternateID</td><td class="td-wave">2</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:70.0%"></div></div></td><td class="td-pct">70%</td><td class="td-pct warn">30%</td><td class="td-n">3</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-done"></span>Deposit</td><td class="td-wave">8</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:70.0%"></div></div></td><td class="td-pct">70%</td><td class="td-pct warn">30%</td><td class="td-n">3</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-done"></span>GiftTransaction</td><td class="td-wave">8</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:48.0%"></div></div></td><td class="td-pct">48%</td><td class="td-pct er">52%</td><td class="td-n">41</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-done"></span>GiftTribute</td><td class="td-wave">8</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:44.0%"></div></div></td><td class="td-pct">44%</td><td class="td-pct er">56%</td><td class="td-n">9</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-done"></span>GiftBatch</td><td class="td-wave">8</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:30.0%"></div></div></td><td class="td-pct">30%</td><td class="td-pct er">70%</td><td class="td-n">14</td><td class="td-badge"><span class="badge b-ok">Ready</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-progress"></span>GiftCommitment</td><td class="td-wave">7</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:91.0%"></div></div></td><td class="td-pct">91%</td><td class="td-pct ok">9%</td><td class="td-n">3</td><td class="td-badge"><span class="badge b-warn">Blocked</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-progress"></span>AccountAccountRelation</td><td class="td-wave">3/4</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:86.0%"></div></div></td><td class="td-pct">86%</td><td class="td-pct ok">14%</td><td class="td-n">1</td><td class="td-badge"><span class="badge b-warn">Blocked</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-progress"></span>ContactContactRelation</td><td class="td-wave">2/3</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:86.0%"></div></div></td><td class="td-pct">86%</td><td class="td-pct ok">14%</td><td class="td-n">1</td><td class="td-badge"><span class="badge b-warn">Blocked</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-progress"></span>CampaignMember</td><td class="td-wave">5</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:80.0%"></div></div></td><td class="td-pct">80%</td><td class="td-pct warn">20%</td><td class="td-n">1</td><td class="td-badge"><span class="badge b-warn">Blocked</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-progress"></span>GiftCommitmentSchedule</td><td class="td-wave">7</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:71.0%"></div></div></td><td class="td-pct">71%</td><td class="td-pct warn">29%</td><td class="td-n">5</td><td class="td-badge"><span class="badge b-warn">Blocked</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-failed"></span>PlannedGift — Estate</td><td class="td-wave">7/8</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:38.0%"></div></div></td><td class="td-pct">38%</td><td class="td-pct er">63%</td><td class="td-n">5</td><td class="td-badge"><span class="badge b-warn">Blocked</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-failed"></span>PlannedGift — Planned Giving</td><td class="td-wave">7/8</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:31.0%"></div></div></td><td class="td-pct">31%</td><td class="td-pct er">69%</td><td class="td-n">9</td><td class="td-badge"><span class="badge b-warn">Blocked</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-failed"></span>OutreachSourceCode</td><td class="td-wave">5</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:30.0%"></div></div></td><td class="td-pct">30%</td><td class="td-pct er">70%</td><td class="td-n">14</td><td class="td-badge"><span class="badge b-warn">Blocked</span></td></tr>
-<tr><td class="td-name"><span class="dot dot-failed"></span>GiftTxnStateOfDiabetes</td><td class="td-wave">8</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:14.0%"></div></div></td><td class="td-pct">14%</td><td class="td-pct er">86%</td><td class="td-n">24</td><td class="td-badge"><span class="badge b-warn">Blocked</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>AccountContactRelation</td><td class="td-wave">2/3</td><td class="td-n">9</td><td class="td-n">7</td><td class="td-n">2</td><td class="td-n">0</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:100.0%"></div></div><span class="barv">100%</span></td><td class="td-pct ok">0%</td><td class="td-badge"><span class="badge b-ok">Sí</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>ContactPointEmail</td><td class="td-wave">2</td><td class="td-n">8</td><td class="td-n">6</td><td class="td-n">2</td><td class="td-n">0</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:100.0%"></div></div><span class="barv">100%</span></td><td class="td-pct ok">0%</td><td class="td-badge"><span class="badge b-ok">Sí</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>HouseholdAccount</td><td class="td-wave">2</td><td class="td-n">33</td><td class="td-n">23</td><td class="td-n">10</td><td class="td-n">0</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:100.0%"></div></div><span class="barv">100%</span></td><td class="td-pct ok">0%</td><td class="td-badge"><span class="badge b-ok">Sí</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>OrgAccount</td><td class="td-wave">2</td><td class="td-n">36</td><td class="td-n">25</td><td class="td-n">11</td><td class="td-n">0</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:100.0%"></div></div><span class="barv">100%</span></td><td class="td-pct ok">0%</td><td class="td-badge"><span class="badge b-ok">Sí</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>Campaign</td><td class="td-wave">5/7</td><td class="td-n">78</td><td class="td-n">37</td><td class="td-n">38</td><td class="td-n">5</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:93.0%"></div></div><span class="barv">93%</span></td><td class="td-pct ok">13%</td><td class="td-badge"><span class="badge b-ok">Sí</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>ContactPointAddress</td><td class="td-wave">2</td><td class="td-n">12</td><td class="td-n">11</td><td class="td-n">0</td><td class="td-n">1</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:92.0%"></div></div><span class="barv">92%</span></td><td class="td-pct ok">8%</td><td class="td-badge"><span class="badge b-ok">Sí</span><span class="cav">(tras DNM picklist)</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>PersonAccount</td><td class="td-wave">1</td><td class="td-n">107</td><td class="td-n">76</td><td class="td-n">23</td><td class="td-n">8</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:90.0%"></div></div><span class="barv">90%</span></td><td class="td-pct ok">10%</td><td class="td-badge"><span class="badge b-ok">Sí</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>AccountTeamMember</td><td class="td-wave">6</td><td class="td-n">9</td><td class="td-n">8</td><td class="td-n">0</td><td class="td-n">1</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:89.0%"></div></div><span class="barv">89%</span></td><td class="td-pct ok">11%</td><td class="td-badge"><span class="badge b-ok">Sí</span><span class="cav">(tras usermap)</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>CommitteeAccount</td><td class="td-wave">2</td><td class="td-n">26</td><td class="td-n">8</td><td class="td-n">17</td><td class="td-n">1</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:89.0%"></div></div><span class="barv">89%</span></td><td class="td-pct ok">11%</td><td class="td-badge"><span class="badge b-ok">Sí</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>GivingSocietyMembership</td><td class="td-wave">8</td><td class="td-n">9</td><td class="td-n">7</td><td class="td-n">1</td><td class="td-n">1</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:88.0%"></div></div><span class="barv">88%</span></td><td class="td-pct ok">13%</td><td class="td-badge"><span class="badge b-ok">Sí</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>Opportunity (proposal)</td><td class="td-wave">9</td><td class="td-n">20</td><td class="td-n">15</td><td class="td-n">3</td><td class="td-n">2</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:88.0%"></div></div><span class="barv">88%</span></td><td class="td-pct ok">12%</td><td class="td-badge"><span class="badge b-ok">Sí</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>GiftSoftCredit</td><td class="td-wave">8</td><td class="td-n">7</td><td class="td-n">5</td><td class="td-n">1</td><td class="td-n">1</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:83.0%"></div></div><span class="barv">83%</span></td><td class="td-pct warn">17%</td><td class="td-badge"><span class="badge b-ok">Sí</span><span class="cav">(tras re-run)</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>GiftTransactionDesignation</td><td class="td-wave">8</td><td class="td-n">11</td><td class="td-n">5</td><td class="td-n">5</td><td class="td-n">1</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:83.0%"></div></div><span class="barv">83%</span></td><td class="td-pct warn">17%</td><td class="td-badge"><span class="badge b-ok">Sí</span><span class="cav">(child of GT)</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>OpportunityTeamMember</td><td class="td-wave">9</td><td class="td-n">6</td><td class="td-n">5</td><td class="td-n">0</td><td class="td-n">1</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:83.0%"></div></div><span class="barv">83%</span></td><td class="td-pct warn">17%</td><td class="td-badge"><span class="badge b-ok">Sí</span><span class="cav">(tras usermap)</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>GiftDesignation</td><td class="td-wave">8</td><td class="td-n">11</td><td class="td-n">9</td><td class="td-n">0</td><td class="td-n">2</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:82.0%"></div></div><span class="barv">82%</span></td><td class="td-pct warn">18%</td><td class="td-badge"><span class="badge b-ok">Sí</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>Task / Event</td><td class="td-wave">4/6</td><td class="td-n">29</td><td class="td-n">22</td><td class="td-n">0</td><td class="td-n">7</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:76.0%"></div></div><span class="barv">76%</span></td><td class="td-pct warn">24%</td><td class="td-badge"><span class="badge b-ok">Sí</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>ContactPointPhone</td><td class="td-wave">2</td><td class="td-n">8</td><td class="td-n">5</td><td class="td-n">1</td><td class="td-n">2</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:71.0%"></div></div><span class="barv">71%</span></td><td class="td-pct warn">29%</td><td class="td-badge"><span class="badge b-ok">Sí</span><span class="cav">(tras FLS)</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>AlternateID</td><td class="td-wave">2</td><td class="td-n">10</td><td class="td-n">7</td><td class="td-n">0</td><td class="td-n">3</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:70.0%"></div></div><span class="barv">70%</span></td><td class="td-pct warn">30%</td><td class="td-badge"><span class="badge b-ok">Sí</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>Deposit</td><td class="td-wave">8</td><td class="td-n">12</td><td class="td-n">7</td><td class="td-n">2</td><td class="td-n">3</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:70.0%"></div></div><span class="barv">70%</span></td><td class="td-pct warn">30%</td><td class="td-badge"><span class="badge b-ok">Sí</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>GiftTransaction</td><td class="td-wave">8</td><td class="td-n">88</td><td class="td-n">38</td><td class="td-n">9</td><td class="td-n">41</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:48.0%"></div></div><span class="barv">48%</span></td><td class="td-pct er">52%</td><td class="td-badge"><span class="badge b-ok">Sí</span><span class="cav">(tras GL/probe)</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>GiftTribute</td><td class="td-wave">8</td><td class="td-n">16</td><td class="td-n">7</td><td class="td-n">0</td><td class="td-n">9</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:44.0%"></div></div><span class="barv">44%</span></td><td class="td-pct er">56%</td><td class="td-badge"><span class="badge b-ok">Sí</span><span class="cav">(tras Q-TRIBUTE-VIEW)</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-done"></span>GiftBatch</td><td class="td-wave">8</td><td class="td-n">22</td><td class="td-n">6</td><td class="td-n">2</td><td class="td-n">14</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:30.0%"></div></div><span class="barv">30%</span></td><td class="td-pct er">70%</td><td class="td-badge"><span class="badge b-ok">Sí</span><span class="cav">(stub; backfill)</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-failed"></span>GiftCommitment</td><td class="td-wave">7</td><td class="td-n">47</td><td class="td-n">30</td><td class="td-n">14</td><td class="td-n">3</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:91.0%"></div></div><span class="barv">91%</span></td><td class="td-pct ok">9%</td><td class="td-badge"><span class="badge b-err">No</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-failed"></span>AccountAccountRelation</td><td class="td-wave">3/4</td><td class="td-n">8</td><td class="td-n">6</td><td class="td-n">1</td><td class="td-n">1</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:86.0%"></div></div><span class="barv">86%</span></td><td class="td-pct ok">14%</td><td class="td-badge"><span class="badge b-err">No</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-failed"></span>ContactContactRelation</td><td class="td-wave">2/3</td><td class="td-n">8</td><td class="td-n">6</td><td class="td-n">1</td><td class="td-n">1</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:86.0%"></div></div><span class="barv">86%</span></td><td class="td-pct ok">14%</td><td class="td-badge"><span class="badge b-err">No</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-failed"></span>CampaignMember</td><td class="td-wave">5</td><td class="td-n">10</td><td class="td-n">4</td><td class="td-n">5</td><td class="td-n">1</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:80.0%"></div></div><span class="barv">80%</span></td><td class="td-pct warn">20%</td><td class="td-badge"><span class="badge b-err">No</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-failed"></span>GiftCommitmentSchedule</td><td class="td-wave">7</td><td class="td-n">30</td><td class="td-n">12</td><td class="td-n">13</td><td class="td-n">5</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:71.0%"></div></div><span class="barv">71%</span></td><td class="td-pct warn">29%</td><td class="td-badge"><span class="badge b-err">No</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-failed"></span>PlannedGift — Estate</td><td class="td-wave">7/8</td><td class="td-n">14</td><td class="td-n">3</td><td class="td-n">6</td><td class="td-n">5</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:38.0%"></div></div><span class="barv">38%</span></td><td class="td-pct er">63%</td><td class="td-badge"><span class="badge b-err">No</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-failed"></span>PlannedGift — Planned Giving</td><td class="td-wave">7/8</td><td class="td-n">14</td><td class="td-n">4</td><td class="td-n">1</td><td class="td-n">9</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:31.0%"></div></div><span class="barv">31%</span></td><td class="td-pct er">69%</td><td class="td-badge"><span class="badge b-err">No</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-failed"></span>OutreachSourceCode</td><td class="td-wave">5</td><td class="td-n">39</td><td class="td-n">6</td><td class="td-n">19</td><td class="td-n">14</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:30.0%"></div></div><span class="barv">30%</span></td><td class="td-pct er">70%</td><td class="td-badge"><span class="badge b-err">No</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-failed"></span>GiftTxnStateOfDiabetes</td><td class="td-wave">8</td><td class="td-n">58</td><td class="td-n">4</td><td class="td-n">30</td><td class="td-n">24</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-proj" style="width:14.0%"></div></div><span class="barv">14%</span></td><td class="td-pct er">86%</td><td class="td-badge"><span class="badge b-err">No</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -239,7 +245,7 @@ tbody tr:hover td{background:rgba(27,150,255,.07)}
         (<code>99_Logs/*_success.csv</code> / <code>*_error.csv</code>, chunked logs rolled up).
         This reflects the most recent load attempt, not a live query of the Salesforce org.</div>
     </div>
-    <div class="banner">No Bulk&nbsp;API result logs are present in this snapshot (they are rotated between pipeline runs), so loaded / failed counts are not available this refresh. Staged counts reflect the current staging layer &mdash; re-run the dashboard right after a load to capture results.</div>
+    
     <div class="tablewrap">
       <table>
         <thead><tr>
@@ -252,7 +258,7 @@ tbody tr:hover td{background:rgba(27,150,255,.07)}
           <th>Status</th>
         </tr></thead>
         <tbody>
-<tr><td class="td-name"><span class="dot dot-pending"></span>Account Account Relation</td><td class="td-n">1,578</td><td class="td-n ok">&mdash;</td><td class="td-n er">&mdash;</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct dim">&mdash;</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
+<tr><td class="td-name"><span class="dot dot-failed"></span>Account Account Relation</td><td class="td-n">1,578</td><td class="td-n ok">0</td><td class="td-n er">1,578</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct er">0.0%</td><td class="td-badge"><span class="badge b-err">Failed</span></td></tr>
 <tr><td class="td-name"><span class="dot dot-pending"></span>Account Contact Relation</td><td class="td-n">54,968</td><td class="td-n ok">&mdash;</td><td class="td-n er">&mdash;</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct dim">&mdash;</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
 <tr><td class="td-name"><span class="dot dot-pending"></span>Account Team Member</td><td class="td-n">0</td><td class="td-n ok">&mdash;</td><td class="td-n er">&mdash;</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct dim">&mdash;</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
 <tr><td class="td-name"><span class="dot dot-pending"></span>Committee Account</td><td class="td-n">6,051</td><td class="td-n ok">&mdash;</td><td class="td-n er">&mdash;</td><td class="td-bar"><div class="bar-track"><div class="bar-fill bar-load" style="width:0.0%"></div></div></td><td class="td-pct dim">&mdash;</td><td class="td-badge"><span class="badge b-pend">Pending</span></td></tr>
@@ -269,15 +275,15 @@ tbody tr:hover td{background:rgba(27,150,255,.07)}
   </div>
 
   <div class="note">
-    <b>How to read this:</b> "ETL Completeness" tracks how much of each object's field mapping is
-    actually wired end-to-end in the scripts and whether it is loadable now (honest about blocked
-    and re-run items). "Load Progress" tracks how many records the last Bulk&nbsp;API run loaded into
-    Salesforce. Both are <b>as-of the last refresh</b> (timestamp above) &mdash; a snapshot
-    regenerated from the migration workspace, not a live stream.
+    <b>How to read this:</b> "ETL Completeness" is reproduced 1:1 from the reconciled audit table &mdash;
+    it tracks how much of each object's field mapping is actually wired end-to-end and whether it is
+    loadable now (the <i>Listo</i> caveat, e.g. "tras re-run", is shown as-is). "Load Progress" tracks how
+    many records the last Bulk&nbsp;API run loaded into Salesforce. Both are <b>as-of the last refresh</b>
+    (timestamp above) &mdash; a snapshot regenerated from the migration workspace, not a live stream.
   </div>
 
   <div class="foot">
-    <div>Generated <span class="ts">2026-06-26 17:32</span> &middot; ADA CARE BBCRM &rarr; Salesforce NPC Migration</div>
+    <div>Generated <span class="ts">2026-06-27 16:47</span> &middot; ADA CARE BBCRM &rarr; Salesforce NPC Migration</div>
     <div>Aggregate metrics only &mdash; no constituent / PII data is published on this page.</div>
   </div>
 
